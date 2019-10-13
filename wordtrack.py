@@ -227,7 +227,7 @@ def _plot(tracking_data):
         return "Plotting requires matplotlib, please install matplotlib and try again."
     wordcount_list = tracking_data[3:]
     stats = _stats(tracking_data)
-    if isinstance("days_remaining", basestring):
+    if isinstance(stats["days_remaining"], str):
         return
     counts = wordcount_list + [0 for i in range(stats["days_remaining"] -1 )]
     Ncount = len(counts)
@@ -253,7 +253,7 @@ def _plot(tracking_data):
     word_target_line = ((x1, x2), (y1, y1))
 
     # creating the plots
-    print "plotting ..."
+    print("plotting ...")
     pyplot.close("all")
 
     fig, ax = pyplot.subplots()
@@ -354,8 +354,8 @@ def wordtrack_update(filename=DEFAULT_FILE, wordcount=0):
     wordcount_list = current[3:]
     stats = _stats(current)
 
-    if isinstance(stats["days_remaining"], basestring):
-        print "Please start a new time period."
+    if isinstance(stats["days_remaining"], str):
+        print("Please start a new time period.")
         return
 
     iday = max(0, stats["current_day"])
@@ -402,7 +402,7 @@ if __name__ == "__main__":
     nlen = len(argv)
     if nlen < 2:
         out = wordtrack_display(filename)
-        print out if out else USAGE
+        print(out if out else USAGE)
     else:
         if argv[1].lower() in ("start", "s"):
             # start a new period
@@ -413,17 +413,17 @@ if __name__ == "__main__":
             if nlen > 3:
                 wordgoal = int(argv[3])
             wordtrack_start(filename=filename, days=days, wordgoal=wordgoal)
-            print "Started new wordtrack period (%s days including today) with the goal of writing %s words. Good luck!" % (days, wordgoal)
+            print("Started new wordtrack period (%s days including today) with the goal of writing %s words. Good luck!" % (days, wordgoal))
         elif argv[1].lower() in ("plot", "p"):
             err = wordtrack_plot(filename=filename)
             if err:
-                print err
+                print(err)
         elif argv[1] in ("help", "h", "--help"):
-            print USAGE
+            print(USAGE)
         elif argv[1].isdigit():
             # register a new word count
             wordtrack_update(filename, int(argv[1]))
             out = wordtrack_display(filename)
-            print out if out else USAGE
+            print(out if out else USAGE)
         else:
-            print "Malformed input. Use --help."
+            print("Malformed input. Use --help.")
