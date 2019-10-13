@@ -386,7 +386,7 @@ def wordtrack_start(filename=DEFAULT_FILE, days=DEFAULT_TIME_PERIOD, wordgoal=DE
     Create a new wordcount record (this stops previous count)
     """
     startdate = datetime.date.today()
-    enddate = startdate + datetime.timedelta(days)
+    enddate = startdate + datetime.timedelta(days-1)
     tracks = _read_wordtrack_file(filename)
     # create the new record and save it
     tracks.append([startdate, enddate, wordgoal, 0])
